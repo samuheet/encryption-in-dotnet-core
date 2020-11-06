@@ -126,8 +126,9 @@ new Dictionary<string, User>();
 
         public static User Register(
 
-        string username, string password)
+string username, string password,
 
+string[] roles = null)
         {
 
             // generate a random salt
@@ -153,7 +154,8 @@ new Dictionary<string, User>();
                 Name = username,
                 Salt = saltText,
 
-                SaltedHashedPassword = saltedhashedPassword
+                SaltedHashedPassword = saltedhashedPassword,
+                Roles = roles
 
             };
 
@@ -348,6 +350,27 @@ new Dictionary<string, User>();
             return rsa.VerifyHash(hashedData, signatureBytes,
 
             HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1);
+
+        }
+        public static void LogIn(string username, string password)
+
+        {
+
+            if (CheckPassword(username, password))
+
+            {
+
+                var identity = new GenericIdentity(
+
+                username, "PacktAuth");
+
+                var principal = new GenericPrincipal(
+
+                identity, Users[username].Roles);
+
+                System.Threading.Thread.CurrentPrincipal = principal;
+
+            }
 
         }
 
