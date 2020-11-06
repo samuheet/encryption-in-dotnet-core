@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"path": "CryptographyLib"
+		},
+		{
+			"path": "EncryptionApp"
+		}
+	],
+	"settings": {}
+}
